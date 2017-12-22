@@ -54,5 +54,12 @@ public class MoneyTest {
         assertTrue(expected.equals(m));
     }
 
+    @Test
+    public void multiplicar_una_quantitat_per_un_enter() {
+        Money m = new Money(new BigDecimal("1.2323"), new Currency("euro"));
+        Money expected = new Money(new BigDecimal("65.32"), new Currency("euro"));
+        assertTrue(expected.equals(m.multiply(53)));
+    }
+
 
 }

@@ -25,8 +25,7 @@ public class Money {
     }
 
     public Money multiply(int multiplier) {
-        /*TODO*/
-        return null;
+        return new Money(this.quantity.multiply(new BigDecimal(multiplier)).setScale(2, RoundingMode.UP), this.currency);
     }
 
     public Money change(BigDecimal ratio, Currency to) {
