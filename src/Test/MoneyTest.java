@@ -3,8 +3,6 @@ package Test;
 import cat.udl.eps.ep.data.Currency;
 import cat.udl.eps.ep.data.Money;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
