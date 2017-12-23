@@ -1,4 +1,4 @@
-package service;
+package cat.udl.eps.ep.service;
 
 import cat.udl.eps.ep.data.Currency;
 
