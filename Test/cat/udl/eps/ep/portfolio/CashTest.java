@@ -1,4 +1,4 @@
-package Test.cat.udl.eps.ep.portfolio;
+package cat.udl.eps.ep.portfolio;
 
 import cat.udl.eps.ep.data.Currency;
 import cat.udl.eps.ep.data.Money;

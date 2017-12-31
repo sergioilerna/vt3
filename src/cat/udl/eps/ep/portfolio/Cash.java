@@ -25,12 +25,12 @@ public class Cash implements Investment {
 
     @Override
     public Money evaluate(Currency currencyTo, MoneyExchange moneyEx, StockExchange stockEx) throws EvaluationException {
-        BigDecimal ratio = null;
+        BigDecimal ratio;
         try {
             ratio = moneyEx.exchangeRatio(money.getCurrency(), currencyTo);
 
         } catch (RatioDoesNotExistException e) {
-            throw new EvaluationException("No hi ha ratio per a la mateixa divisa.");
+            throw new EvaluationException("Error: No es pot canviar d'una divisa a la mateixa divisa.");
         }
         return money.change(ratio, currencyTo);
     }
