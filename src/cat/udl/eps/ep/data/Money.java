@@ -6,7 +6,8 @@ import java.math.RoundingMode;
 /**
  * Representa una quantitat monetaria en una determinada divisa
  *
- * @author Alvaro Ortega Marmol - 53399228-J
+ * @author Alvaro Ortega Marmol
+ * @DNI 53399228-J
  */
 public class Money {
     private BigDecimal quantity;
@@ -41,6 +42,7 @@ public class Money {
      * Resta de dos operacions monetaries (de la mateixa divisa).
      * Les monedes han de tenir la mateixa divisa, en cas de que les divises siguin diferents es produira la excepcio
      * IllegalArgumentException
+     *
      * @param other Una moneda amb una quantitat
      * @return Moneda resultant de la operacio
      */
@@ -52,6 +54,7 @@ public class Money {
 
     /**
      * Producte d'na quantitat monetaria por un enter
+     *
      * @param multiplier enter multiplicador
      * @return Moneda resultant de la operacio
      */
@@ -61,14 +64,18 @@ public class Money {
 
     /**
      * Producte d'una quantitat monetaria per un rati de canvi, expressant el resultat en la divisa donada
+     *
      * @param ratio rati multiplicador de la divisa
-     * @param to divisa a la qual es vol realitzar el canvi
+     * @param to    divisa a la qual es vol realitzar el canvi
      * @return Moneda amb la quantitat corresponent al rati i la divisa donada
      */
     public Money change(BigDecimal ratio, Currency to) {
         if (to.equals(this.currency))
             throw new IllegalArgumentException("No es pot fer el canvi a la mateixa moneda");
         return new Money(this.quantity.multiply(ratio).setScale(2, RoundingMode.UP), to);
+    }
+    public Currency getCurrency(){
+        return this.currency;
     }
 
     @Override

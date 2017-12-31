@@ -1,5 +1,11 @@
 package cat.udl.eps.ep.data;
 
+/**
+ * Representa el nom d'un ticket (nom d'una empresa en un mercat).
+ *
+ * @author Alvaro Ortega Marmol
+ * @DNI 53399228-J
+ */
 public class Ticket {
     private String name;
 

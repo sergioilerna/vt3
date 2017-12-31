@@ -5,7 +5,11 @@ import cat.udl.eps.ep.data.Money;
 import cat.udl.eps.ep.data.Ticket;
 import cat.udl.eps.ep.service.MoneyExchange;
 import cat.udl.eps.ep.service.StockExchange;
-
+/**
+ *
+ * @author Alvaro Ortega Marmol
+ * @DNI 53399228-J
+ */
 public class Stock implements Investment {
     public Stock(Ticket ticket, int numShares) {
     }
