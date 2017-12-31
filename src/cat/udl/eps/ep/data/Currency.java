@@ -37,6 +37,6 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "Divisa nom = " + name;
+        return "\t Divisa='" + name+"'";
     }
 }

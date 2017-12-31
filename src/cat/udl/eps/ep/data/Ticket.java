@@ -9,6 +9,10 @@ package cat.udl.eps.ep.data;
 public class Ticket {
     private String name;
 
+    /**
+     * Constructor
+     * @param name Nom d'una empresa en un mercat
+     */
     public Ticket(String name) {
         this.name = name;
     }

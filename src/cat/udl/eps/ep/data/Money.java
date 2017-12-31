@@ -20,6 +20,8 @@ public class Money {
      * @param currency divisa corresponent a la moneda
      */
     public Money(BigDecimal quantity, Currency currency) {
+        if (quantity == null || currency == null)
+            throw new IllegalArgumentException("Els parametres del constructor no poden ser nulls");
         this.quantity = quantity;
         this.currency = currency;
     }
@@ -74,7 +76,8 @@ public class Money {
             throw new IllegalArgumentException("No es pot fer el canvi a la mateixa moneda");
         return new Money(this.quantity.multiply(ratio).setScale(2, RoundingMode.UP), to);
     }
-    public Currency getCurrency(){
+
+    public Currency getCurrency() {
         return this.currency;
     }
 
@@ -97,8 +100,6 @@ public class Money {
 
     @Override
     public String toString() {
-        return "Money " +
-                "quantity=" + quantity +
-                ", currency=" + currency;
+        return "Money \t Quantitat=" + quantity + currency;
     }
 }

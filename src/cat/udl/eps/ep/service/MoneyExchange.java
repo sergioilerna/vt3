@@ -10,5 +10,12 @@ import java.math.BigDecimal;
  * @DNI 53399228-J
  */
 public interface MoneyExchange {
+    /**
+     * Servei extern per saber el ratio de conversio entre divisis
+     * @param from divisa que tenim
+     * @param to divisa a la que volem convertir
+     * @return ratio de conversio
+     * @throws RatioDoesNotExistException Currency from i Currency to son la iguals.
+     */
     BigDecimal exchangeRatio(Currency from, Currency to) throws RatioDoesNotExistException;
 }

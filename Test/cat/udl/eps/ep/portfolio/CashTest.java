@@ -2,8 +2,6 @@ package cat.udl.eps.ep.portfolio;
 
 import cat.udl.eps.ep.data.Currency;
 import cat.udl.eps.ep.data.Money;
-import cat.udl.eps.ep.portfolio.Cash;
-import cat.udl.eps.ep.portfolio.EvaluationException;
 import cat.udl.eps.ep.service.MoneyExchange;
 import cat.udl.eps.ep.service.RatioDoesNotExistException;
 import org.junit.Test;
@@ -48,8 +46,8 @@ public class CashTest {
         bigDecimal = new BigDecimal("500");
         money = new Money(bigDecimal, currency);
         cash = new Cash(money);
-        Money m = cash.evaluate(new Currency("euro"), new MoneyExchangeImpl(), null);
+        Money result = cash.evaluate(new Currency("euro"), new MoneyExchangeImpl(), null);
         Money expected = new Money(new BigDecimal("3.01"), new Currency("euro"));
-        assertTrue(expected.equals(m));
+        assertTrue(expected.equals(result));
     }
 }
