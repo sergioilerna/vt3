@@ -22,7 +22,7 @@ public class Money {
     public Money(BigDecimal quantity, Currency currency) {
         if (quantity == null || currency == null)
             throw new IllegalArgumentException("Els parametres del constructor no poden ser nulls");
-        this.quantity = quantity;
+        this.quantity = quantity.setScale(2,RoundingMode.UP);
         this.currency = currency;
     }
 
@@ -100,6 +100,6 @@ public class Money {
 
     @Override
     public String toString() {
-        return "Money \t Quantitat=" + quantity + currency;
+        return "Money \t Value=" + quantity + currency;
     }
 }

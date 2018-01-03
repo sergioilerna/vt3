@@ -40,6 +40,8 @@ public class Cash implements Investment {
      */
     @Override
     public Money evaluate(Currency currencyTo, MoneyExchange moneyEx, StockExchange stockEx) throws EvaluationException {
+        if (currencyTo == null || moneyEx == null)
+            throw new IllegalArgumentException("Els parametres no poden ser null");
         BigDecimal ratio;
         try {
             ratio = moneyEx.exchangeRatio(money.getCurrency(), currencyTo);

@@ -24,7 +24,8 @@ public class Stock implements Investment {
 
     /**
      * Numero d'accions d'una determinada companyia
-     * @param ticket Nom de l'empresa
+     *
+     * @param ticket    Nom de l'empresa
      * @param numShares quantitat d'accions
      */
     public Stock(Ticket ticket, int numShares) {
@@ -44,13 +45,16 @@ public class Stock implements Investment {
      */
     @Override
     public Money evaluate(Currency currencyTo, MoneyExchange moneyEx, StockExchange stockEx) throws EvaluationException {
+        if (currencyTo == null || moneyEx == null || stockEx == null)
+            throw new IllegalArgumentException("Els parametres no poden ser null");
         Money result;
         try {
             result = stockEx.value(ticket);
         } catch (TicketDoesNotExistException e) {
             throw new EvaluationException("Error: No existeix el Ticket al StockExchange.");
         }
-        if (!result.getCurrency().equals(currencyTo)){
+
+        if (!result.getCurrency().equals(currencyTo)) {
             BigDecimal ratio;
             try {
                 ratio = moneyEx.exchangeRatio(result.getCurrency(), currencyTo);

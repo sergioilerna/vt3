@@ -16,8 +16,9 @@ public class Currency {
      * @param name nom de la divisa
      */
     public Currency(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("El nom de la divisa no pot ser null");
         this.name = name;
-
     }
 
     @Override
@@ -37,6 +38,6 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "\t Divisa='" + name+"'";
+        return "\t Currency='" + name+"'";
     }
 }

@@ -11,9 +11,12 @@ public class Ticket {
 
     /**
      * Constructor
+     *
      * @param name Nom d'una empresa en un mercat
      */
     public Ticket(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("El Ticket ha de contenir un nom");
         this.name = name;
     }
 
