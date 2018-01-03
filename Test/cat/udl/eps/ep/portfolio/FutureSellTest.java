@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  * @author Alvaro Ortega Marmol
  * @DNI 53399228J
  */
-public class FutureBuyTest {
+public class FutureSellTest {
     private static class MoneyExchangeImpl implements MoneyExchange {
         @Override
         public BigDecimal exchangeRatio(Currency from, Currency to) throws RatioDoesNotExistException {
@@ -52,42 +52,41 @@ public class FutureBuyTest {
         }
     }
 
-
     @Test(expected = IllegalArgumentException.class)
-    public void future_buy_with_ticket_null_param() {
-        new FutureBuy(null, 20, new Money(new BigDecimal("20"), new Currency("euro")));
+    public void future_sell_with_ticket_null_param() {
+        new FutureSell(null, 20,
+                new Money(new BigDecimal("20"),
+                        new Currency("euro")));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void future_buy_with_num_shares_negative_param() {
-        new FutureBuy(null, -1, null);
+    public void future_sell_with_num_shares_negative_param() {
+        new FutureSell(null, -1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void future_buy_with_price_per_share_null_params() {
-        new FutureBuy(null, -1, null);
+    public void future_sell_with_price_per_share_null_params() {
+        new FutureSell(null, -1, null);
     }
 
     @Test
-    public void future_buy_with_gain_value() throws EvaluationException {
-        FutureBuy fb = new FutureBuy(new Ticket("BBVA"), 10,
+    public void future_sell_with_gain_value() throws EvaluationException {
+        FutureSell fs = new FutureSell(new Ticket("BBVA"), 10,
                 new Money(new BigDecimal("9.45"),
                         new Currency("euro")));
-        Money result = fb.evaluate(new Currency("euro"), new MoneyExchangeImpl(), new StockExchangeImpl());
-        Money expected = new Money(new BigDecimal("9.20"), new Currency("euro"));
-
+        Money result = fs.evaluate(new Currency("euro"), new MoneyExchangeImpl(), new StockExchangeImpl());
+        Money expected = new Money(new BigDecimal("-9.20"), new Currency("euro"));
         assertTrue(expected.equals(result));
     }
 
     @Test
-    public void future_buy_with_lose_value() throws EvaluationException {
-        FutureBuy fb = new FutureBuy(new Ticket("BBVA"), 10,
+    public void future_sell_with_lose_value() throws EvaluationException {
+        FutureSell fs = new FutureSell(new Ticket("BBVA"), 10,
                 new Money(new BigDecimal("12.23"),
                         new Currency("euro")));
-        Money result = fb.evaluate(new Currency("euro"), new MoneyExchangeImpl(), new StockExchangeImpl());
-        Money expected = new Money(new BigDecimal("-18.60"), new Currency("euro"));
+        Money result = fs.evaluate(new Currency("euro"), new MoneyExchangeImpl(), new StockExchangeImpl());
+        Money expected = new Money(new BigDecimal("18.60"), new Currency("euro"));
 
         assertTrue(expected.equals(result));
     }
-
 }

@@ -2,29 +2,32 @@ package cat.udl.eps.ep.data;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+
+import static org.junit.Assert.assertTrue;
 
 public class MoneyTest {
     Money money;
 
     @Before
-    public void init_money(){
+    public void init_money() {
         money = new Money(new BigDecimal("20.3512321"), new Currency("euro"));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void constructor_with_null_quantity(){
-        Money null_quantity=new Money(null,new Currency("euro"));
+    public void constructor_with_null_quantity() {
+        new Money(null, new Currency("euro"));
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void constructor_with_all_attributes_null(){
-        Money null_quantity=new Money(null,null);
+    public void constructor_with_all_attributes_null() {
+        new Money(null, null);
     }
+
     @Test(expected = IllegalArgumentException.class)
-    public void constructor_with_null_currency(){
-        Money null_currency=new Money(null,new Currency("euro"));
+    public void constructor_with_null_currency() {
+        new Money(null, new Currency("euro"));
     }
 
     @Test(expected = IllegalArgumentException.class)
