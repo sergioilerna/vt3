@@ -5,8 +5,11 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertEquals;
+/**
+ * @author Alvaro Ortega Marmol
+ * @DNI 53399228J
+ */
 public class MoneyTest {
     Money money;
 
@@ -40,7 +43,7 @@ public class MoneyTest {
     public void suma_de_Money_amb_igual_currency() {
         Money m2 = new Money(new BigDecimal("20.451324234"), new Currency("euro"));
         Money expected = new Money(new BigDecimal("40.82"), new Currency("euro"));
-        assertTrue(expected.equals(money.add(m2)));
+        assertEquals(expected,m2.add(money));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -54,7 +57,7 @@ public class MoneyTest {
     public void resta_de_Money_amb_igual_currency() {
         Money moneyToSubs = new Money(new BigDecimal("20.451"), new Currency("euro"));
         Money expected = new Money(new BigDecimal("-00.10"), new Currency("euro"));
-        assertTrue(expected.equals(money.subtract(moneyToSubs)));
+        assertEquals(expected,money.subtract(moneyToSubs));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -66,13 +69,13 @@ public class MoneyTest {
     public void canviar_currency_a_una_currency_diferent() {
         money = money.change(new BigDecimal("1.1850"), new Currency("dollar"));
         Money expected = new Money(new BigDecimal("24.13"), new Currency("dollar"));
-        assertTrue(expected.equals(money));
+        assertEquals(expected,money);
     }
 
     @Test
     public void multiplicar_una_quantitat_per_un_enter() {
         Money expected = new Money(new BigDecimal("61.08"), new Currency("euro"));
-        assertTrue(expected.equals(money.multiply(3)));
+        assertEquals(expected,money.multiply(3));
     }
 
 

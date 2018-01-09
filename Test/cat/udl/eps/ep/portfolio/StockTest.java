@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Alvaro Ortega Marmol
@@ -23,32 +23,53 @@ public class StockTest {
     private static class MoneyExchangeImpl implements MoneyExchange {
         @Override
         public BigDecimal exchangeRatio(Currency from, Currency to) throws RatioDoesNotExistException {
+            BigDecimal ratio = null;
             if (from.equals(to))
                 throw new RatioDoesNotExistException("No es pot fer el canvi a una mateixa divisa");
-            else
-                return new BigDecimal("0.006009976561091");
+            else {
+                if (to.equals(new Currency("euro")))
+                    ratio = new BigDecimal("1.4324");
+                else if (to.equals(new Currency("euro_ES")))
+                    ratio = new BigDecimal("1.213");
+                else if (to.equals(new Currency("euro_AND")))
+                    ratio = new BigDecimal("1.123");
+                else if (to.equals(new Currency("dollar")))
+                    ratio = new BigDecimal("2.23342");
+            }
+            return ratio;
         }
     }
 
     private static class StockExchangeImpl implements StockExchange {
         private List<Ticket> values;
 
-        public StockExchangeImpl() {
-            values = new ArrayList<Ticket>();
-            values.add(new Ticket("CBK"));
+        StockExchangeImpl() {
+            values = new ArrayList<>();
             values.add(new Ticket("BBVA"));
             values.add(new Ticket("ING"));
             values.add(new Ticket("BANKIA"));
         }
 
-
         @Override
         public Money value(Ticket ticket) throws TicketDoesNotExistException {
-            if (!values.contains(ticket)) {
-                throw new TicketDoesNotExistException("L'empresa esmentada no conté accions");
+            Money result = null;
+            if (values.contains(ticket)) {
+                switch (ticket.getName()) {
+                    case "BBVA":
+                        result = new Money(new BigDecimal("10.34"), new Currency("dollar"));
+                        break;
+                    case "ING":
+                        result = new Money(new BigDecimal("8.34"), new Currency("euro_ES"));
+                        break;
+                    case "BANKIA":
+                        result = new Money(new BigDecimal("7.23"), new Currency("euro_AND"));
+                        break;
+                }
             } else {
-                return new Money(new BigDecimal("500"), new Currency("pesetas"));
+                throw new TicketDoesNotExistException("L'empresa esmentada no conté accions");
             }
+
+            return result;
         }
     }
 
@@ -62,24 +83,24 @@ public class StockTest {
 
     @Test
     public void exist_ticket_and_have_diferent_currency() throws EvaluationException {
-        Ticket ticket = new Ticket("CBK");
-        Stock stock = new Stock(ticket, 20);
+        Ticket ticket = new Ticket("ING");
+        Stock stock = new Stock(ticket, 8);
         Money m = stock.evaluate(new Currency("euro"),
                                 new MoneyExchangeImpl(),
                                 new StockExchangeImpl());
-        Money expected = new Money(new BigDecimal("60.20"),new Currency("euro"));
+        Money expected = new Money(new BigDecimal("95.60"),new Currency("euro"));
 
-        assertTrue(expected.equals(m));
+        assertEquals(expected,m);
     }
     @Test
     public void exist_ticket_and_have_same_currency() throws EvaluationException {
         Ticket ticket = new Ticket("BBVA");
         Stock stock = new Stock(ticket, 2);
-        Money m = stock.evaluate(new Currency("pesetas"),
+        Money m = stock.evaluate(new Currency("dollar"),
                                 new MoneyExchangeImpl(),
                                 new StockExchangeImpl());
-        Money expected = new Money(new BigDecimal("1000.00"),new Currency("pesetas"));
-        assertTrue(expected.equals(m));
+        Money expected = new Money(new BigDecimal("20.68"),new Currency("dollar"));
+        assertEquals(expected,m);
     }
 
 

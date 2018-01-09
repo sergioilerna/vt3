@@ -27,7 +27,7 @@ class Future {
      * @param numShares     Número d'accions
      * @param pricePerShare preu de l'accio
      */
-    public Future(Ticket ticket, int numShares, Money pricePerShare) {
+    Future(Ticket ticket, int numShares, Money pricePerShare) {
         if (ticket == null || numShares < 1 | pricePerShare == null)
             throw new IllegalArgumentException("El constructur no pot contenir parametres nulls");
         this.ticket = ticket;
@@ -35,21 +35,18 @@ class Future {
         this.pricePerShare = pricePerShare;
     }
 
-    public Money calculateActualValue(Currency currencyTo, MoneyExchange moneyEx, StockExchange stockEx) throws EvaluationException {
+    Money calculateActualValue(Currency currencyTo, MoneyExchange moneyEx, StockExchange stockEx) throws EvaluationException {
         Money value;
         try {
             value = stockEx.value(this.ticket);
         } catch (TicketDoesNotExistException e) {
             throw new EvaluationException("La companyia no te accions");
         }
-        if (!value.getCurrency().equals(currencyTo)) {
-            value = obtainMoney(value, moneyEx, currencyTo);
-        }
-
+        value = obtainMoney(value, moneyEx, currencyTo);
         return value.multiply(numShares);
     }
 
-    public Money calculateAgreedValue(Currency currencyTo, MoneyExchange moneyEx) throws EvaluationException {
+    Money calculateAgreedValue(Currency currencyTo, MoneyExchange moneyEx) throws EvaluationException {
         //Price Value --> Valor pactat
         Money agreedValue;
         if (!pricePerShare.getCurrency().equals(currencyTo)) {
@@ -67,7 +64,7 @@ class Future {
             ratio = moneyEx.exchangeRatio(result.getCurrency(), to);
             result = result.change(ratio, to);
         } catch (RatioDoesNotExistException e) {
-            throw new EvaluationException("No es pot fer el canvi de la divisa");
+            return result;
         }
         return result;
     }

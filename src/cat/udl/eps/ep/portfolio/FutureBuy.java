@@ -4,11 +4,8 @@ import cat.udl.eps.ep.data.Currency;
 import cat.udl.eps.ep.data.Money;
 import cat.udl.eps.ep.data.Ticket;
 import cat.udl.eps.ep.service.MoneyExchange;
-import cat.udl.eps.ep.service.RatioDoesNotExistException;
 import cat.udl.eps.ep.service.StockExchange;
-import cat.udl.eps.ep.service.TicketDoesNotExistException;
 
-import java.math.BigDecimal;
 
 /**
  * @author Alvaro Ortega Marmol
@@ -31,7 +28,6 @@ public class FutureBuy extends Future implements Investment {
 
         Money actual = super.calculateActualValue(currencyTo,moneyEx,stockEx);
         Money agreed = super.calculateAgreedValue(currencyTo,moneyEx);
-
         return actual.subtract(agreed);
     }
 
