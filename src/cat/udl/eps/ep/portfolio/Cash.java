@@ -14,7 +14,6 @@ import java.math.BigDecimal;
  * @author Alvaro Ortega Marmol
  * @DNI 53399228-J
  */
-/*Como mucho invoca a uno de los servicios externos MoneyExchange*/
 
 public class Cash implements Investment {
     private Money money;

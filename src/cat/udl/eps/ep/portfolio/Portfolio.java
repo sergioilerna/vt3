@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
+ * Cartera de inversions
  * @author Alvaro Ortega Marmol
  * @DNI 53399228-J
  */
@@ -18,9 +19,13 @@ public class Portfolio implements Investment {
     private LinkedList<Investment> cartera;
 
     public Portfolio() {
-        cartera = new LinkedList<Investment>();
-
+        cartera = new LinkedList<>();
     }
+
+    /**
+     * Afegir una nova inversio
+     * @param investment FutureSell, FutureBuy, Money, etc.
+     */
 
     public void addInvestment(Investment investment) {
         if (investment == null)
@@ -28,6 +33,15 @@ public class Portfolio implements Investment {
         cartera.add(investment);
     }
 
+    /**
+     * Suma de les valoracions de les inversions que conté
+     *
+     * @param currencyTo Divisa a la qual es fara el canvi
+     * @param moneyEx    Conversor de divises
+     * @param stockEx    Quantitat d'accions d'una companyia
+     * @return Moneda amb el resultat de l'operacio
+     * @throws EvaluationException Error en l'evaluacio
+     */
     @Override
     public Money evaluate(Currency currencyTo, MoneyExchange moneyEx, StockExchange stockEx) throws EvaluationException {
         Money total = new Money(new BigDecimal("2"), new Currency("euro"));
