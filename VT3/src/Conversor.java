@@ -105,6 +105,8 @@ public class Conversor extends javax.swing.JFrame {
         euros = dolares * 0.88;
         cadenaDolares = Double.toString(euros);
         jLabel2.setText(cadenaDolares);
+        
+        //cambio 1
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
